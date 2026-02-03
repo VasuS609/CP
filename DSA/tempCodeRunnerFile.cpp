@@ -1,0 +1,1 @@
+ int next_val = p[i + 1];
