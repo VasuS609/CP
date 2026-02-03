@@ -1,23 +1,28 @@
-class Solution{
-  public:
-    bool find132patter(vector<int> & nums){
-      int n = nums.size();
+class Solution {
+public:
+    bool find132pattern(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 2) return false; 
 
-      int num3 = INT_MIN;
-      stack<int> st;
-      for(int i = n-1; i>=0; i--){
-        if(nums[i] < num3){
-          return true;
+        vector<int> memo(n, INT_MAX);
+        memo[1] = nums[0];
+
+        for (int i = 1; i <= n - 1; ++i) {
+            memo[i] = min(memo[i - 1], nums[i - 1]);
         }
 
-        while(!st.empty() && st.top() <nums[i]){
-          int num3 = st.top();
-          st.pop();
+        vector<int> stk;
 
+        for (int i = n - 1; i >= 0; --i) {
+            int curr = nums[i];
+            
+            while (!stk.empty() && curr > stk.back() ) {
+                if (memo[i] < stk.back()) return true;
+                stk.pop_back();
+            }
+
+            stk.push_back(curr);
         }
-
-        st.push(nums[i]);
-      }
-      return false;
+        return false;
     }
-} 
+};
