@@ -14,3 +14,14 @@ public:
         return -1;
     }
 };
+
+ 
+--- 
+
+int recursion(int arr, int low , int high, int target){
+    int  mid = (low + high) /2;
+    if (target == nums[mid]) return mid;
+    else if(target> nums[mid]) recursion(arr, mid+1, high, target);
+    else recursion(arr, low, mid-1, target);
+    
+}
