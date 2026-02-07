@@ -7,13 +7,13 @@ class findValue{
     int low = 0; int high = n-1;
     int ans = -1;
     
-    while(low<= high){
+    while(low <= high){
       int mid = (low + high)/2;
-      if(arr[mid]>=x){
-        ans = mid;
-        high = mid-1;
+      if(arr[mid] <= x){
+        ans = arr[mid];
+        low = mid+1;
       }else{
-        low= mid+1;
+        high = mid - 1;
       }
     }
     return ans;
@@ -25,30 +25,30 @@ class findValue{
 
     while(low <= high){
       int mid = (low + high)/2;
-      if(arr[mid] <= x){
-        ans = mid;
-        low = mid+1;
-      }else{
+      if(arr[mid] >= x){
+        ans = arr[mid];
         high = mid-1;
+      }else{
+        low = mid+1;
       }
     }
     return ans;
   }
-
-  pair<int, int> findFloorCeil(int arr[], int n, int x){
-    int m = findFloor(arr, n, x);
-    int q = findCeil(arr, n, x);
+pair<int, int> findFloorCeil(int arr[], int n, int x){
+    int m = findFloor(arr, x, n); 
+    int q = findCeil(arr, x, n);   
     return make_pair(m, q);
-  }
+}
+
 };
 
 int main() {
-    int arr[] = {1,2,3,4,5,6};
-    int n = arr.size();
+    int arr[] = {1,2,3, 4,5,6};
+    int n = sizeof(arr)/sizeof(arr[0]);
     int x = 5;
     findValue value;
     pair<int, int> ans = value.findFloorCeil(arr, n, x);
-    cout<<"The floor and ceil are"<<ans.first<<" "<<ans.second;
+    cout<<"The floor and ceil are "<<ans.first<<" "<<ans.second;
 
     return 0;
 }
